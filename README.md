@@ -2,7 +2,7 @@
 
 This repository contains the R code to reproduce the analyses of the paper entitled *"A proposal for homoskedastic modelling with conditional auto-regressive distributions"* (Martínez-Beneito et al., 2025).
 
-The results of the models presented in this paper were obtained using the R-INLA stable version 24.06.27 on R 4.4.1
+The results of the models presented in this paper were obtained using the R-INLA stable version 24.06.27 on R 4.4.1.
 
 ## Table of contents
 
@@ -33,7 +33,7 @@ This folder contains the following files:
     
 -   [**Section4.R**](https://github.com/spatialstatisticsupna/HomCAR/blob/master/Rcode/Section4.R)
 
-    R script to reproduce the results from Section 4 (*A practical assessment of the HomCAR distribution*) of the paper, presenting a simulation study that compares the performance of the proposed HomCAR distribution with the traditional ICAR prior
+    R script to reproduce the results from Section 4 (*A practical assessment of the HomCAR distribution*) of the paper, presenting a simulation study that compares the performance of the proposed HomCAR distribution with the traditional ICAR prior.
     
     
 # Acknowledgements
