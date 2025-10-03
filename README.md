@@ -12,7 +12,7 @@ The results of the models presented in this paper were obtained using the R-INLA
 
 # R code {#r-code}
 
-Describir los archivos y los scripts.
+Describir los archivos y los scripts. Prueba
 
 # Acknowledgements {#acknowledgements}
 
