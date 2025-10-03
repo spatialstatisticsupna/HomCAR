@@ -527,3 +527,91 @@ Table1 <- data.frame('Valencian Region'=unlist(lapply(post.sd.VR, function(x) sd
                      'Castile-La Mancha'=unlist(lapply(post.sd.CM, function(x) sd(apply(x,1,function(y) mean(y^2))))))
 
 round(Table1,4)
+
+
+#########################################################################
+## FIGURE 5:                                                           ##
+## Differences in variance of the relative risks between HomCAR-based  ##
+## and ICAR-based BYM models. Brown areas correspond to locations with ##
+## higher variance for the HomCAR model while green areas show lower   ##
+## variance for this model.                                            ##
+#########################################################################
+rm(list=ls())
+
+## Load cartography files ##
+load("./Carto_files.Rdata")
+
+## Load results from the traditional ICAR prior ##
+load("./Results_ICARmodels.Rdata")
+CartoVR["Var.ICAR"] <- apply(sweep(Res.VR,2, apply(Res.VR,2,mean)),1,var)
+CartoCL["Var.ICAR"] <- apply(sweep(Res.CL,2, apply(Res.CL,2,mean)),1,var)
+CartoAR["Var.ICAR"] <- apply(sweep(Res.AR,2, apply(Res.AR,2,mean)),1,var)
+CartoCM["Var.ICAR"] <- apply(sweep(Res.CM,2, apply(Res.CM,2,mean)),1,var)
+
+## Load results from the proposed HomCAR prior ##
+load("./Results_HomCARmodels.Rdata")
+CartoVR["Var.HomCAR"] <- apply(sweep(Res.VR.HomCAR,2, apply(Res.VR.HomCAR,2,mean)),1,var)
+CartoCL["Var.HomCAR"] <- apply(sweep(Res.CL.HomCAR,2, apply(Res.CL.HomCAR,2,mean)),1,var)
+CartoAR["Var.HomCAR"] <- apply(sweep(Res.AR.HomCAR,2, apply(Res.AR.HomCAR,2,mean)),1,var)
+CartoCM["Var.HomCAR"] <- apply(sweep(Res.CM.HomCAR,2, apply(Res.CM.HomCAR,2,mean)),1,var)
+
+## Compute relative differences of the municipal variances ##
+CartoVR["dif.var"] <- (CartoVR$Var.HomCAR-CartoVR$Var.ICAR)/CartoVR$Var.ICAR
+CartoCL["dif.var"] <- (CartoCL$Var.HomCAR-CartoCL$Var.ICAR)/CartoCL$Var.ICAR
+CartoAR["dif.var"] <- (CartoAR$Var.HomCAR-CartoAR$Var.ICAR)/CartoAR$Var.ICAR
+CartoCM["dif.var"] <- (CartoCM$Var.HomCAR-CartoCM$Var.ICAR)/CartoCM$Var.ICAR
+
+Fig4.VR <- tm_shape(CartoVR) +
+  tm_polygons(fill="dif.var",
+              fill.scale=tm_scale(values=brewer.pal(7,"BrBG")[7:1],
+                                  midpoint=0,
+                                  breaks=c(-Inf,-0.5,-0.25,-0.1,0.1,0.25,0.5,Inf),
+                                  labels=c("less than -50%","-50% to 10%","-25% to -10%","-10% to 10%","10% to 25%","25% to 50%","50% or more")),
+              fill.legend=tm_legend("Changes in variance", show=TRUE, reverse=TRUE,
+                                    position=tm_pos_out("right","center"),
+                                    frame=FALSE),
+              col_alpha=0.3) + 
+  tm_title("Valencian Region", fontface="bold") + 
+  tm_options(component.autoscale = FALSE)
+
+Fig4.CL <- tm_shape(CartoCL) +
+  tm_polygons(fill="dif.var",
+              fill.scale=tm_scale(values=brewer.pal(7,"BrBG")[7:1],
+                                  midpoint=0,
+                                  breaks=c(-Inf,-0.5,-0.25,-0.1,0.1,0.25,0.5,Inf),
+                                  labels=c("less than -50%","-50% to 10%","-25% to -10%","-10% to 10%","10% to 25%","25% to 50%","50% or more")),
+              fill.legend=tm_legend("Changes in variance", show=TRUE, reverse=TRUE,
+                                    position=tm_pos_out("right","center"),
+                                    frame=FALSE),
+              col_alpha=0.3) + 
+  tm_title("Castile and Leon", fontface="bold") + 
+  tm_options(component.autoscale = FALSE)
+
+Fig4.AR <- tm_shape(CartoAR) +
+  tm_polygons(fill="dif.var",
+              fill.scale=tm_scale(values=brewer.pal(7,"BrBG")[7:1],
+                                  midpoint=0,
+                                  breaks=c(-Inf,-0.5,-0.25,-0.1,0.1,0.25,0.5,Inf),
+                                  labels=c("less than -50%","-50% to 10%","-25% to -10%","-10% to 10%","10% to 25%","25% to 50%","50% or more")),
+              fill.legend=tm_legend("Changes in variance", show=TRUE, reverse=TRUE,
+                                    position=tm_pos_out("right","center"),
+                                    frame=FALSE),
+              col_alpha=0.3) + 
+  tm_title("Aragon", fontface="bold") + 
+  tm_options(component.autoscale = FALSE)
+
+Fig4.CM <- tm_shape(CartoCM) +
+  tm_polygons(fill="dif.var",
+              fill.scale=tm_scale(values=brewer.pal(7,"BrBG")[7:1],
+                                  midpoint=0,
+                                  breaks=c(-Inf,-0.5,-0.25,-0.1,0.1,0.25,0.5,Inf),
+                                  labels=c("less than -50%","-50% to 10%","-25% to -10%","-10% to 10%","10% to 25%","25% to 50%","50% or more")),
+              fill.legend=tm_legend("Changes in variance", show=TRUE, reverse=TRUE,
+                                    position=tm_pos_out("right","center"),
+                                    frame=FALSE),
+              col_alpha=0.3) + 
+  tm_title("Castile-La Mancha", fontface="bold") + 
+  tm_options(component.autoscale = FALSE)
+
+Fig4 <- tmap_arrange(Fig4.VR, Fig4.CL, Fig4.AR, Fig4.CM, nrow=2, ncol=2)
+tmap_save(Fig4, filename="Figure4.pdf", width=12, height=10)
