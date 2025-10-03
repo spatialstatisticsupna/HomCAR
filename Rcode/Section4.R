@@ -153,11 +153,6 @@ Q.weighted <- prec.matrices$VR$Q.weighted
 post.mean.VR <- list(`CAR`=matrix(nrow=nrow(carto), ncol=n.sim),
                      `HomCAR`=matrix(nrow=nrow(carto), ncol=n.sim))
 
-post.q1.VR <- post.mean.VR
-post.q2.VR <- post.mean.VR
-post.sd.VR <- post.mean.VR
-post.cdf.VR <- post.mean.VR   
-  
 DIC.VR <- list(`CAR`=data.frame(DIC=numeric(n.sim), WAIC=numeric(n.sim), LS=numeric(n.sim)),
                `HomCAR`=data.frame(DIC=numeric(n.sim), WAIC=numeric(n.sim), LS=numeric(n.sim)))
 
@@ -192,18 +187,6 @@ for(i in 1:n.sim){
   post.mean.VR$CAR[,i] <- M1$summary.linear.predictor$mean
   post.mean.VR$HomCAR[,i] <- M2$summary.linear.predictor$mean
 
-  post.q1.VR$CAR[,i] <- M1$summary.linear.predictor$`0.025quant`
-  post.q1.VR$HomCAR[,i] <- M2$summary.linear.predictor$`0.025quant`
-  
-  post.q2.VR$CAR[,i] <- M1$summary.linear.predictor$`0.975quant`
-  post.q2.VR$HomCAR[,i] <- M2$summary.linear.predictor$`0.975quant`
-  
-  post.sd.VR$CAR[,i] <- M1$summary.linear.predictor$sd
-  post.sd.VR$HomCAR[,i] <- M2$summary.linear.predictor$sd
-  
-  post.cdf.VR$CAR[,i] <- M1$summary.linear.predictor$`0cdf`
-  post.cdf.VR$HomCAR[,i] <- M2$summary.linear.predictor$`0cdf`
-  
   DIC.VR$CAR[i,] <- c(M1$dic$dic, M1$waic$waic, -sum(log(M1$cpo$cpo)))
   DIC.VR$HomCAR[i,] <- c(M2$dic$dic, M2$waic$waic, -sum(log(M2$cpo$cpo)))
 }
@@ -218,11 +201,6 @@ Q.weighted <- prec.matrices$CL$Q.weighted
 ## Objects to save ##
 post.mean.CL <- list(`CAR`=matrix(nrow=nrow(carto), ncol=n.sim),
                      `HomCAR`=matrix(nrow=nrow(carto), ncol=n.sim))
-
-post.q1.CL <- post.mean.CL
-post.q2.CL <- post.mean.CL
-post.sd.CL <- post.mean.CL
-post.cdf.CL <- post.mean.CL
 
 DIC.CL <- list(`CAR`=data.frame(DIC=numeric(n.sim), WAIC=numeric(n.sim), LS=numeric(n.sim)),
                `HomCAR`=data.frame(DIC=numeric(n.sim), WAIC=numeric(n.sim), LS=numeric(n.sim)))
@@ -259,18 +237,6 @@ for(i in 1:n.sim){
   post.mean.CL$CAR[,i] <- M1$summary.linear.predictor$mean
   post.mean.CL$HomCAR[,i] <- M2$summary.linear.predictor$mean
   
-  post.q1.CL$CAR[,i] <- M1$summary.linear.predictor$`0.025quant`
-  post.q1.CL$HomCAR[,i] <- M2$summary.linear.predictor$`0.025quant`
-  
-  post.q2.CL$CAR[,i] <- M1$summary.linear.predictor$`0.975quant`
-  post.q2.CL$HomCAR[,i] <- M2$summary.linear.predictor$`0.975quant`
-  
-  post.sd.CL$CAR[,i] <- M1$summary.linear.predictor$sd
-  post.sd.CL$HomCAR[,i] <- M2$summary.linear.predictor$sd
-  
-  post.cdf.CL$CAR[,i] <- M1$summary.linear.predictor$`0cdf`
-  post.cdf.CL$HomCAR[,i] <- M2$summary.linear.predictor$`0cdf`
-  
   DIC.CL$CAR[i,] <- c(M1$dic$dic, M1$waic$waic, -sum(log(M1$cpo$cpo)))
   DIC.CL$HomCAR[i,] <- c(M2$dic$dic, M2$waic$waic, -sum(log(M2$cpo$cpo)))
 }
@@ -285,11 +251,6 @@ Q.weighted <- prec.matrices$AR$Q.weighted
 ## Objects to save ##
 post.mean.AR <- list(`CAR`=matrix(nrow=nrow(carto), ncol=n.sim),
                      `HomCAR`=matrix(nrow=nrow(carto), ncol=n.sim))
-
-post.q1.AR <- post.mean.AR
-post.q2.AR <- post.mean.AR
-post.sd.AR <- post.mean.AR
-post.cdf.AR <- post.mean.AR
 
 DIC.AR <- list(`CAR`=data.frame(DIC=numeric(n.sim), WAIC=numeric(n.sim), LS=numeric(n.sim)),
                `HomCAR`=data.frame(DIC=numeric(n.sim), WAIC=numeric(n.sim), LS=numeric(n.sim)))
@@ -325,19 +286,7 @@ for(i in 1:n.sim){
   ## Save results ##
   post.mean.AR$CAR[,i] <- M1$summary.linear.predictor$mean
   post.mean.AR$HomCAR[,i] <- M2$summary.linear.predictor$mean
-  
-  post.q1.AR$CAR[,i] <- M1$summary.linear.predictor$`0.025quant`
-  post.q1.AR$HomCAR[,i] <- M2$summary.linear.predictor$`0.025quant`
-  
-  post.q2.AR$CAR[,i] <- M1$summary.linear.predictor$`0.975quant`
-  post.q2.AR$HomCAR[,i] <- M2$summary.linear.predictor$`0.975quant`
-  
-  post.sd.AR$CAR[,i] <- M1$summary.linear.predictor$sd
-  post.sd.AR$HomCAR[,i] <- M2$summary.linear.predictor$sd
-  
-  post.cdf.AR$CAR[,i] <- M1$summary.linear.predictor$`0cdf`
-  post.cdf.AR$HomCAR[,i] <- M2$summary.linear.predictor$`0cdf`
-  
+
   DIC.AR$CAR[i,] <- c(M1$dic$dic, M1$waic$waic, -sum(log(M1$cpo$cpo)))
   DIC.AR$HomCAR[i,] <- c(M2$dic$dic, M2$waic$waic, -sum(log(M2$cpo$cpo)))
 }
@@ -352,11 +301,6 @@ Q.weighted <- prec.matrices$CM$Q.weighted
 ## Objects to save ##
 post.mean.CM <- list(`CAR`=matrix(nrow=nrow(carto), ncol=n.sim),
                      `HomCAR`=matrix(nrow=nrow(carto), ncol=n.sim))
-
-post.q1.CM <- post.mean.CM
-post.q2.CM <- post.mean.CM
-post.sd.CM <- post.mean.CM
-post.cdf.CM <- post.mean.CM
 
 DIC.CM <- list(`CAR`=data.frame(DIC=numeric(n.sim), WAIC=numeric(n.sim), LS=numeric(n.sim)),
                `HomCAR`=data.frame(DIC=numeric(n.sim), WAIC=numeric(n.sim), LS=numeric(n.sim)))
@@ -392,19 +336,7 @@ for(i in 1:n.sim){
   ## Save results ##
   post.mean.CM$CAR[,i] <- M1$summary.linear.predictor$mean
   post.mean.CM$HomCAR[,i] <- M2$summary.linear.predictor$mean
-  
-  post.q1.CM$CAR[,i] <- M1$summary.linear.predictor$`0.025quant`
-  post.q1.CM$HomCAR[,i] <- M2$summary.linear.predictor$`0.025quant`
-  
-  post.q2.CM$CAR[,i] <- M1$summary.linear.predictor$`0.975quant`
-  post.q2.CM$HomCAR[,i] <- M2$summary.linear.predictor$`0.975quant`
-  
-  post.sd.CM$CAR[,i] <- M1$summary.linear.predictor$sd
-  post.sd.CM$HomCAR[,i] <- M2$summary.linear.predictor$sd
-  
-  post.cdf.CM$CAR[,i] <- M1$summary.linear.predictor$`0cdf`
-  post.cdf.CM$HomCAR[,i] <- M2$summary.linear.predictor$`0cdf`
-  
+
   DIC.CM$CAR[i,] <- c(M1$dic$dic, M1$waic$waic, -sum(log(M1$cpo$cpo)))
   DIC.CM$HomCAR[i,] <- c(M2$dic$dic, M2$waic$waic, -sum(log(M2$cpo$cpo)))
 }
@@ -518,13 +450,13 @@ Fig3 <- tmap_arrange(Fig3.VR, Fig3.CL, Fig3.AR, Fig3.CM, nrow=4, ncol=1)
 tmap_save(Fig3, filename="Figure3.pdf", width=10, height=12)
 
 
-###########################################################################################
-## TABLE 1: Standard deviations for the municipal marginal variances by model and region ##
-###########################################################################################
-Table1 <- data.frame('Valencian Region'=unlist(lapply(post.sd.VR, function(x) sd(apply(x,1,function(y) mean(y^2))))),
-                     'Castile Leon'=unlist(lapply(post.sd.CL, function(x) sd(apply(x,1,function(y) mean(y^2))))),
-                     'Aragon'=unlist(lapply(post.sd.AR, function(x) sd(apply(x,1,function(y) mean(y^2))))),
-                     'Castile-La Mancha'=unlist(lapply(post.sd.CM, function(x) sd(apply(x,1,function(y) mean(y^2))))))
+######################################################################################################################
+## TABLE 1: Standard deviations for the municipal empirical variances of posterior mean estimates for the log-risks ##
+######################################################################################################################
+Table1 <- data.frame('Valencian Region'=unlist(lapply(post.mean.VR, function(x) sd(apply(x,1,var)))),
+                     'Castile Leon'=unlist(lapply(post.mean.CL, function(x) sd(apply(x,1,var)))),
+                     'Aragon'=unlist(lapply(post.mean.AR, function(x) sd(apply(x,1,var)))),
+                     'Castile-La Mancha'=unlist(lapply(post.mean.CM, function(x) sd(apply(x,1,var)))))
 
 round(Table1,4)
 
