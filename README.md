@@ -42,6 +42,8 @@ This research was supported by the projects PID2020-113125RBI00/MCIN/AEI/10.1303
 
 ![plot](https://github.com/spatialstatisticsupna/HomCAR/blob/main/miciu-aei.jpg)
 
+![plot](https://github.com/spatialstatisticsupna/bigDM/blob/master/micin-aei.jpg)
+
 
 # References
 
